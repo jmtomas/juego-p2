@@ -24,8 +24,7 @@ public class Sonido {
 
     public Sonido(String nombre) {
         URL url = this.getClass().getResource("sonidos/" + nombre + ".wav");
-        try {
-            AudioInputStream as = AudioSystem.getAudioInputStream(url);
+        try (AudioInputStream as = AudioSystem.getAudioInputStream(url)) {
             DataLine.Info info = new DataLine.Info(Clip.class, as.getFormat());
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(as);
