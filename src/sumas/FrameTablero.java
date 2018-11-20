@@ -98,7 +98,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         }
         this.labelJugadorActual.setText(partida.getActual());
         if (partida.isFinPartida()) {
-            Sonido s = new Sonido("Tada");
+            Sonido.reproducir("Tada");
             JOptionPane.showMessageDialog(this, partida.getActual() + " ganó.");
             partida.deleteObserver(this);
             this.dispose();
@@ -216,7 +216,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Sonido s;
             if (!this.partida.isRepeticion()) {
                 Tablero t = this.partida.getTablero();
                 if (this.cmd.getTipo() == -1) {
@@ -228,19 +227,19 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                         this.cmd.setFila(this.fila);
                         this.cmd.setColumna(this.columna);
                         this.cmd.setTipo(0);
-                        s = new Sonido("Command");
+                        Sonido.reproducir("Command");
                     } else {
                         this.cmd.setTipo(-1);
-                        s = new Sonido("Balloon");
+                        Sonido.reproducir("Command");
                     }
                 } else {
                     this.cmd.changeFila(this.fila);
                     this.cmd.changeColumna(this.columna);
                     if (this.cmd.validarComando(this.partida) == 0) {
-                        s = new Sonido("Command");
+                        Sonido.reproducir("Command");
                         this.partida.ejecutarComando(this.cmd);
                     } else {
-                        s = new Sonido("Balloon");
+                        Sonido.reproducir("Balloon");
                     }
                     this.cmd.setTipo(-1);
                 }
@@ -269,7 +268,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                 case 0:
                     this.cmd.setTipo(2);
                     if (this.cmd.validarComando(this.partida) == 0) {
-                        s = new Sonido("Command");
+                        Sonido.reproducir("Command");
                         this.partida.ejecutarComando(this.cmd);
                     }
                     break;
@@ -278,7 +277,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                     this.partida.ejecutarComando(this.cmd);
                     break;
                 case 2:
-                    s = new Sonido("Command");
+                    Sonido.reproducir("Command");
                     this.partida.ejecutarComando(this.partida.pop());
                     break;
                 case 3:

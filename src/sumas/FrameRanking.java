@@ -135,7 +135,7 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
                 bw.write(this.sistema.jugadoresJson());
                 bw.flush();
             } catch (IOException ex) {
-                Sonido s = new Sonido("Error");
+                Sonido.reproducir("Error");
                 JOptionPane.showMessageDialog(this, "No se pudo exportar el archivo.");
             }
         }

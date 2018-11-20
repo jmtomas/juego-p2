@@ -14,7 +14,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Frame Principal");
         this.getContentPane().setBackground(new Color(0x222222));
-        Sonido s = new Sonido("Startup");
+        Sonido.reproducir("Startup");
     }
 
     public FramePrincipal(Sistema sistema) {
@@ -114,7 +114,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void botonNuevaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaPartidaActionPerformed
         if (this.sistema.getJugadores().isEmpty()) {
-            Sonido s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "No hay jugadores registrados.");
         } else {
             FramePartida frame = new FramePartida(this.sistema);
@@ -125,7 +125,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void botonReplicarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReplicarPartidaActionPerformed
         if (this.sistema.getPartidas().isEmpty()) {
-            Sonido s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "No hay partidas terminadas.");
         } else {
             FrameReplica frame = new FrameReplica(this.sistema);
@@ -136,7 +136,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void botonVerRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerRankingActionPerformed
         if (this.sistema.getJugadores().isEmpty()) {
-            Sonido s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "No hay jugadores registrados.");
         } else {
             FrameRanking frame = new FrameRanking(this.sistema);
@@ -149,7 +149,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         try {
             this.sistema.guardar();
         } catch (IOException ex) {
-            Sonido s = new Sonido("Error");
+            Sonido.reproducir("Error");
             JOptionPane.showMessageDialog(this, "No se pudo guardar el sistema.");
         }
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));

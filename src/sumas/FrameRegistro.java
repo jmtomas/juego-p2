@@ -112,15 +112,14 @@ public class FrameRegistro extends javax.swing.JFrame {
         String nombre = this.fieldNombre.getText();
         String alias = this.fieldAlias.getText();
         int edad = (Integer)this.fieldEdad.getValue();
-        Sonido s;
         if (this.fieldNombre.getText().equals("")) {
-            s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Ingrese un nombre.");
         } else if (this.fieldAlias.getText().equals("")) {
-            s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Ingrese un alias.");
         } else if (!this.sistema.aliasUnico(alias)) {
-            s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Ingrese un alias único.");
         } else {
             this.sistema.registroJugador(nombre, alias, edad);

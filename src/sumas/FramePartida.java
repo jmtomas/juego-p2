@@ -184,12 +184,11 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
         String aliasRojo = (String)this.fieldRojo.getSelectedItem();
         String aliasAzul = (String)this.fieldAzul.getSelectedItem();
         int turnos = (Integer) this.fieldTurnos.getValue();
-        Sonido s;
         if (aliasRojo.equals(aliasAzul)) {
-            s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Los alias no deben ser iguales.");
         } else if (this.radioTurnos.isSelected() && turnos < 1) {
-            s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Ingrese una cantidad valida de turnos.");
         } else {
             Partida nueva;

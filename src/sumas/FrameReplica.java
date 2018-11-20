@@ -114,7 +114,7 @@ public class FrameReplica extends javax.swing.JFrame implements Observer {
 
     private void botonReplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReplicarActionPerformed
         if (this.tablaPartidas.getSelectedRow() == -1) {
-            Sonido s = new Sonido("Exclamation");
+            Sonido.reproducir("Exclamation");
             JOptionPane.showMessageDialog(this, "Seleccione una partida.");
         } else {
             Partida partida = this.sistema.nuevaReplica(this.tablaPartidas.getSelectedRow());
