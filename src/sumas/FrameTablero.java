@@ -67,22 +67,20 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         Tablero tablero = this.partida.getTablero();
         for (int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 9; j++) {
-                switch (tablero.piezaCoord(i, j).getColor()) {
+                Pieza pieza = tablero.piezaCoord(i, j);
+                switch (pieza.getColor()) {
                     case "rojo":
                         this.celdas[i][j].setBackground(new Color(0xAA5555));
+                        this.celdas[i][j].setText(Integer.toString(pieza.getValor()));
                         break;
                     case "azul":
                         this.celdas[i][j].setBackground(new Color(0x5555AA));
+                        this.celdas[i][j].setText(Integer.toString(pieza.getValor()));
                         break;
                     default:
                         this.celdas[i][j].setBackground(Color.lightGray);
+                        this.celdas[i][j].setText("");
                         break;
-                }
-                int valor = tablero.piezaCoord(i, j).getValor();
-                if (valor != 0) {
-                    this.celdas[i][j].setText(Integer.toString(valor));
-                } else {
-                    this.celdas[i][j].setText("");
                 }
             }
         }
@@ -97,6 +95,11 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
             this.statusBar.setText("");
         }
         this.labelJugadorActual.setText(partida.getActual());
+        if (partida.getTerminacion() == 3) {
+            this.labelTurnos.setText("Turnos restantes: " + partida.getRestantes());
+        } else {
+            this.labelTurnos.setText("");
+        }
         if (partida.isFinPartida()) {
             Sonido.reproducir("Tada");
             JOptionPane.showMessageDialog(this, partida.getActual() + " ganó.");
@@ -118,6 +121,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         panelJuego = new javax.swing.JPanel();
         statusBar = new javax.swing.JLabel();
         labelJugadorActual = new javax.swing.JLabel();
+        labelTurnos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -150,13 +154,18 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         statusBar.setForeground(new java.awt.Color(255, 255, 255));
         statusBar.setText("statusBar");
         getContentPane().add(statusBar);
-        statusBar.setBounds(40, 430, 630, 20);
+        statusBar.setBounds(40, 430, 390, 20);
 
         labelJugadorActual.setBackground(new java.awt.Color(22, 22, 22));
         labelJugadorActual.setForeground(new java.awt.Color(255, 255, 255));
         labelJugadorActual.setText("jugadorActual");
         getContentPane().add(labelJugadorActual);
         labelJugadorActual.setBounds(50, 10, 150, 20);
+
+        labelTurnos.setForeground(java.awt.Color.white);
+        labelTurnos.setText("Turnos restantes:");
+        getContentPane().add(labelTurnos);
+        labelTurnos.setBounds(440, 430, 150, 20);
 
         setSize(new java.awt.Dimension(713, 464));
         setLocationRelativeTo(null);
@@ -195,6 +204,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelJugadorActual;
+    private javax.swing.JLabel labelTurnos;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JLabel statusBar;
@@ -230,7 +240,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                         Sonido.reproducir("Command");
                     } else {
                         this.cmd.setTipo(-1);
-                        Sonido.reproducir("Command");
+                        Sonido.reproducir("Balloon");
                     }
                 } else {
                     this.cmd.changeFila(this.fila);
@@ -263,7 +273,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Sonido s;
             switch (this.tipo) {
                 case 0:
                     this.cmd.setTipo(2);
