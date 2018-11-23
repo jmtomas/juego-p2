@@ -3,6 +3,8 @@ package sumas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -23,8 +25,8 @@ public class Sonido {
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(inputStream);
             clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+            Logger.getLogger(Sonido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
