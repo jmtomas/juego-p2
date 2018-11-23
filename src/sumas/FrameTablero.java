@@ -112,7 +112,11 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         }
         if (partida.isFinPartida()) {
             Sonido.reproducir("Tada");
-            JOptionPane.showMessageDialog(this, partida.getActual() + " ganó.");
+            if (!partida.getActual().equals("gris")) {
+                JOptionPane.showMessageDialog(this, partida.getActual() + " ganó.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Hubo un empate.");
+            }
             partida.deleteObserver(this);
             this.dispose();
         }
