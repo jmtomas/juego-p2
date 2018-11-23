@@ -11,13 +11,13 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 public class FrameTablero extends javax.swing.JFrame implements Observer {
 
     private JButton[][] celdas;
     private Sistema sistema;
     private Partida partida;
-    private Comando comando;
 
     public FrameTablero() {
         initComponents();
@@ -29,7 +29,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         this();
         this.sistema = sistema;
         this.partida = partida;
-        this.comando = new Comando();
         this.panelJuego.setLayout(new GridLayout(8, 9));
         this.celdas = new JButton[9][10];
         for (int i = 1; i <= 8; i++) {
@@ -37,7 +36,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                 JButton jButton = new JButton();
                 jButton.setMargin(new Insets(-5, -5, -5, -5));
                 jButton.setForeground(Color.white);
-                jButton.addActionListener(new ListenerCelda(i, j, this.partida, this.comando));
+                jButton.addActionListener(new ListenerCelda(i, j, this.partida));
                 this.panelJuego.add(jButton);
                 this.celdas[i][j] = jButton;
             }
@@ -54,7 +53,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
     private void agregarBoton(String texto, int tipo) {
         JButton boton = new JButton();
-        boton.addActionListener(new ListenerBoton(this.sistema, this.partida, tipo, this.comando));
+        boton.addActionListener(new ListenerBoton(this.sistema, this.partida, tipo));
         boton.setText(texto);
         boton.setForeground(Color.white);
         boton.setBackground(Color.gray);
@@ -71,16 +70,24 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                 switch (pieza.getColor()) {
                     case "rojo":
                         this.celdas[i][j].setBackground(new Color(0xAA5555));
-                        this.celdas[i][j].setText(Integer.toString(pieza.getValor()));
                         break;
                     case "azul":
                         this.celdas[i][j].setBackground(new Color(0x5555AA));
-                        this.celdas[i][j].setText(Integer.toString(pieza.getValor()));
                         break;
                     default:
-                        this.celdas[i][j].setBackground(Color.lightGray);
-                        this.celdas[i][j].setText("");
+                        this.celdas[i][j].setBackground(Color.LIGHT_GRAY);
                         break;
+                }
+                if (pieza.getValor() != 0) {
+                    this.celdas[i][j].setText(Integer.toString(pieza.getValor()));
+                } else {
+                    this.celdas[i][j].setText("");
+                }
+                if (!this.partida.isFinPartida() && !this.partida.isRepeticion() && (tablero.getPosibles().contains(pieza)
+                        || (tablero.getPosibles().isEmpty() && pieza.getColor().equals(this.partida.getActual())))) {
+                    this.celdas[i][j].setBorder(new LineBorder(Color.YELLOW, 2));
+                } else {
+                    this.celdas[i][j].setBorder(new LineBorder(Color.BLACK, 1));
                 }
             }
         }
@@ -100,11 +107,34 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         } else {
             this.labelTurnos.setText("");
         }
+        if (this.partida.getComando().getTipo() == 0) {
+            this.cambiarBordes();
+        }
         if (partida.isFinPartida()) {
             Sonido.reproducir("Tada");
             JOptionPane.showMessageDialog(this, partida.getActual() + " ganó.");
             partida.deleteObserver(this);
             this.dispose();
+        }
+    }
+
+    public void cambiarBordes() {
+        Pieza pieza = this.partida.getComando().getTarget();
+        Tablero tablero = this.partida.getTablero();
+        int fila = pieza.getFila();
+        if (pieza.getColor().equals("rojo")) {
+            fila--;
+        } else {
+            fila++;
+        }
+        if (tablero.despejado(pieza, -1)) {
+            this.celdas[fila][pieza.getColumna() - 1].setBorder(new LineBorder(Color.YELLOW, 2));
+        }
+        if (tablero.despejado(pieza, 0)) {
+            this.celdas[fila][pieza.getColumna()].setBorder(new LineBorder(Color.YELLOW, 2));
+        }
+        if (tablero.despejado(pieza, 1)) {
+            this.celdas[fila][pieza.getColumna() + 1].setBorder(new LineBorder(Color.YELLOW, 2));
         }
     }
 
@@ -215,43 +245,32 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         private final int fila;
         private final int columna;
         private final Partida partida;
-        private final Comando cmd;
 
-        public ListenerCelda(int i, int j, Partida p, Comando cmd) {
+        public ListenerCelda(int i, int j, Partida p) {
             this.fila = i;
             this.columna = j;
             this.partida = p;
-            this.cmd = cmd;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!this.partida.isRepeticion()) {
-                Tablero t = this.partida.getTablero();
-                if (this.cmd.getTipo() == -1) {
-                    Pieza pieza = t.piezaCoord(this.fila, this.columna);
-                    this.cmd.setTarget(pieza);
-                    if (pieza.getValor() != 0
-                            && pieza.getColor().equals(this.partida.getActual())
-                            && (t.getPosibles().isEmpty() || t.getPosibles().contains(pieza))) {
-                        this.cmd.setFila(this.fila);
-                        this.cmd.setColumna(this.columna);
-                        this.cmd.setTipo(0);
+                if (this.partida.getComando().getTipo() == -1) {
+                    if (this.partida.prepararComando(fila, columna)) {
                         Sonido.reproducir("Command");
                     } else {
-                        this.cmd.setTipo(-1);
                         Sonido.reproducir("Balloon");
                     }
                 } else {
-                    this.cmd.changeFila(this.fila);
-                    this.cmd.changeColumna(this.columna);
-                    if (this.cmd.validarComando(this.partida) == 0) {
+                    this.partida.getComando().changeFila(this.fila);
+                    this.partida.getComando().changeColumna(this.columna);
+                    if (this.partida.getComando().validarComando(this.partida) == 0) {
                         Sonido.reproducir("Command");
-                        this.partida.ejecutarComando(this.cmd);
+                        this.partida.ejecutarComando(this.partida.getComando());
                     } else {
                         Sonido.reproducir("Balloon");
+                        this.partida.prepararComando(fila, columna);
                     }
-                    this.cmd.setTipo(-1);
                 }
             }
         }
@@ -261,29 +280,27 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
         private final Sistema sistema;
         private final Partida partida;
-        private final Comando cmd;
         private final int tipo;
 
-        public ListenerBoton(Sistema sistema, Partida partida, int tipo, Comando cmd) {
+        public ListenerBoton(Sistema sistema, Partida partida, int tipo) {
             this.sistema = sistema;
             this.partida = partida;
             this.tipo = tipo;
-            this.cmd = cmd;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (this.tipo) {
                 case 0:
-                    this.cmd.setTipo(2);
-                    if (this.cmd.validarComando(this.partida) == 0) {
+                    this.partida.getComando().setTipo(2);
+                    if (this.partida.getComando().validarComando(this.partida) == 0) {
                         Sonido.reproducir("Command");
-                        this.partida.ejecutarComando(this.cmd);
+                        this.partida.ejecutarComando(this.partida.getComando());
                     }
                     break;
                 case 1:
-                    this.cmd.setTipo(1);
-                    this.partida.ejecutarComando(this.cmd);
+                    this.partida.getComando().setTipo(1);
+                    this.partida.ejecutarComando(this.partida.getComando());
                     break;
                 case 2:
                     Sonido.reproducir("Command");
@@ -293,7 +310,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                     FramePartida frame = new FramePartida(this.sistema, this.partida);
                     frame.setVisible(true);
             }
-            this.cmd.setTipo(-1);
         }
     }
 

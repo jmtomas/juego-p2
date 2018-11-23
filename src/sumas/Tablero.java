@@ -77,7 +77,9 @@ public class Tablero implements Serializable {
         }
         int c = pieza.getColumna() + columna;
         for (Pieza p : this.piezas) {
-            if (p.equals(this.piezaCoord(f, c))) {
+            if (p.equals(this.piezaCoord(f, c))
+                    || c < 1 || c > 9
+                    || f < 1 || f > 8) {
                 esta = false;
             }
         }

@@ -9,6 +9,7 @@ import java.util.Observable;
 public class Partida extends Observable implements Serializable {
 
     private ArrayList<Comando> comandos;
+    private Comando comando;
     private int turnos;
     private int restantes;
     private Jugador rojo;
@@ -26,6 +27,14 @@ public class Partida extends Observable implements Serializable {
 
     public void setComandos(ArrayList<Comando> comandos) {
         this.comandos = comandos;
+    }
+
+    public Comando getComando() {
+        return comando;
+    }
+
+    public void setComando(Comando comando) {
+        this.comando = comando;
     }
 
     public int getTurnos() {
@@ -140,6 +149,7 @@ public class Partida extends Observable implements Serializable {
         this.finPartida = false;
         this.repeticion = false;
         this.comandos = new ArrayList<>();
+        this.comando = new Comando();
         this.tablero = new Tablero();
         this.cal = Calendar.getInstance();
     }
@@ -200,11 +210,29 @@ public class Partida extends Observable implements Serializable {
         }
     }
 
-    public void ejecutarComando(Comando comando) {
-        this.push(new Comando(comando));
-        switch (comando.getTipo()) {
+    public boolean prepararComando(int fila, int columna) {
+        Pieza target = this.tablero.piezaCoord(fila, columna);
+        boolean pudo = true;
+        if (target.valida(this)) {
+            this.comando.setTarget(target);
+            this.comando.setFila(fila);
+            this.comando.setColumna(columna);
+            this.comando.setTipo(0);
+        }
+        else {
+            pudo = false;
+            this.comando.setTipo(-1);
+        }
+        this.setChanged();
+        this.notifyObservers();
+        return pudo;
+    }
+
+    public void ejecutarComando(Comando cmd) {
+        this.push(new Comando(cmd));
+        switch (cmd.getTipo()) {
             case 0:
-                this.tablero.moverPieza(comando);
+                this.tablero.moverPieza(cmd);
                 if (this.esFinTurno()) {
                     this.restantes--;
                 }
@@ -223,6 +251,7 @@ public class Partida extends Observable implements Serializable {
             case 2:
                 this.alternarJugadorActual();
         }
+        cmd.setTipo(-1);
         this.setChanged();
         this.notifyObservers();
     }

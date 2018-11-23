@@ -72,7 +72,15 @@ public class Pieza implements Serializable {
         }
         this.columna += cmd.getColumna();
     }
-    
+
+    public boolean valida(Partida p) {
+        Tablero t = p.getTablero();
+        return this.valor != 0
+                && this.color.equals(p.getActual())
+                && (t.getPosibles().isEmpty() || t.getPosibles().contains(this))
+                && !this.alFinal();
+    }
+
     public boolean alFinal() {
         boolean status = false;
         if (this.color.equals("rojo") && this.fila == 1
