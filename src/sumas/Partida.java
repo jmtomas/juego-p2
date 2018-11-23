@@ -213,7 +213,7 @@ public class Partida extends Observable implements Serializable {
     public boolean prepararComando(int fila, int columna) {
         Pieza target = this.tablero.piezaCoord(fila, columna);
         boolean pudo = true;
-        if (target.valida(this)) {
+        if (!target.equals(this.comando.getTarget()) && target.valida(this)) {
             this.comando.setTarget(target);
             this.comando.setFila(fila);
             this.comando.setColumna(columna);
@@ -221,6 +221,7 @@ public class Partida extends Observable implements Serializable {
         }
         else {
             pudo = false;
+            this.comando.setTarget(new Pieza(0, "gris"));
             this.comando.setTipo(-1);
         }
         this.setChanged();
