@@ -1,3 +1,4 @@
+/* Juan Manuel Tomás - 232063 */
 package sumas;
 
 import java.awt.Color;
