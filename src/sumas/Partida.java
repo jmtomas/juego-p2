@@ -270,7 +270,7 @@ public class Partida extends Observable implements Serializable {
 
     @Override
     public String toString() {
-        return "Partida{" + "comandos=" + comandos + ", turnos=" + turnos + ", restantes=" + restantes + ", rojo=" + rojo + ", azul=" + azul + ", actual=" + actual + ", tablero=" + tablero + ", finPartida=" + finPartida + ", terminacion=" + terminacion + ", repeticion=" + repeticion + '}';
+        return "Partida{" + "comandos=" + comandos + ", comando=" + comando + ", turnos=" + turnos + ", restantes=" + restantes + ", rojo=" + rojo + ", azul=" + azul + ", actual=" + actual + ", tablero=" + tablero + ", finPartida=" + finPartida + ", terminacion=" + terminacion + ", repeticion=" + repeticion + ", cal=" + cal + '}';
     }
 
 }
