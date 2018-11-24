@@ -215,6 +215,7 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_botonJugarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        this.sistema.deleteObserver(this);
         this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 

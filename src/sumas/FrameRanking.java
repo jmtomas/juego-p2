@@ -141,11 +141,13 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_botonExportarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        this.sistema.deleteObserver(this);
         this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.sistema.deleteObserver(this);
+        System.out.println("chau");
     }//GEN-LAST:event_formWindowClosing
 
     /**

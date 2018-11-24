@@ -117,6 +117,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
             } else {
                 JOptionPane.showMessageDialog(this, "Hubo un empate.");
             }
+            partida.deleteObserver(this);
             this.dispose();
         }
     }
