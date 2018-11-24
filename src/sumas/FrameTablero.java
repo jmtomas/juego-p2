@@ -308,6 +308,8 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
                     if (this.partida.getComando().validarComando(this.partida) == 0) {
                         Sonido.reproducir("Command");
                         this.partida.ejecutarComando(this.partida.getComando());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Prohibido pasar el turno antes de mover fichas");
                     }
                     break;
                 case 1:
