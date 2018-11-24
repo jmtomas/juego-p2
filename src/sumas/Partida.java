@@ -19,7 +19,7 @@ public class Partida extends Observable implements Serializable {
     private boolean finPartida;
     private int terminacion;
     private boolean repeticion;
-    Calendar cal;
+    private Calendar cal;
 
     public ArrayList<Comando> getComandos() {
         return comandos;
