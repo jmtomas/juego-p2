@@ -12,7 +12,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     public FramePrincipal() {
         initComponents();
-        this.setTitle("Frame Principal");
+        this.setTitle("Ficha 2: Electric Boogaloo");
         this.getContentPane().setBackground(new Color(0x222222));
         Sonido.reproducir("Startup");
     }
@@ -40,13 +40,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         TituloMenuPrincipal.setForeground(java.awt.Color.white);
-        TituloMenuPrincipal.setText("Menu Principal");
+        TituloMenuPrincipal.setText("Ficha 2: Electric Boogaloo");
         getContentPane().add(TituloMenuPrincipal);
-        TituloMenuPrincipal.setBounds(155, 27, 104, 15);
+        TituloMenuPrincipal.setBounds(120, 20, 210, 15);
 
         botonRegistrarJugador.setBackground(java.awt.Color.gray);
         botonRegistrarJugador.setForeground(java.awt.Color.white);
@@ -103,7 +102,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(botonSalir);
         botonSalir.setBounds(146, 232, 66, 25);
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

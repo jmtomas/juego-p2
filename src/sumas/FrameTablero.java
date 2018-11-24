@@ -159,7 +159,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         panelBotones.setBackground(new java.awt.Color(34, 34, 34));
@@ -201,7 +200,7 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         getContentPane().add(labelTurnos);
         labelTurnos.setBounds(440, 430, 150, 20);
 
-        setSize(new java.awt.Dimension(713, 464));
+        setSize(new java.awt.Dimension(723, 494));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

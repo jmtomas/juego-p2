@@ -63,7 +63,6 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         botonSalir.setBackground(java.awt.Color.gray);
@@ -105,13 +104,12 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
         getContentPane().add(paneJugadores);
         paneJugadores.setBounds(20, 40, 360, 210);
 
-        jLabel1.setBackground(null);
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Ranking");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(160, 10, 70, 15);
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

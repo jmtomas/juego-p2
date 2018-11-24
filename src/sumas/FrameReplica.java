@@ -56,7 +56,6 @@ public class FrameReplica extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         panePartidas.setBackground(java.awt.Color.darkGray);
@@ -109,7 +108,7 @@ public class FrameReplica extends javax.swing.JFrame implements Observer {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(123, 8, 178, 15);
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

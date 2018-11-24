@@ -76,7 +76,6 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
         fieldAzul = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
 
         jLabel1.setForeground(java.awt.Color.white);
@@ -176,7 +175,7 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
         getContentPane().add(fieldAzul);
         fieldAzul.setBounds(120, 130, 100, 24);
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -51,7 +51,6 @@ public class FrameRegistro extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         getContentPane().setLayout(null);
         getContentPane().add(fieldNombre);
         fieldNombre.setBounds(140, 60, 180, 19);
@@ -104,7 +103,7 @@ public class FrameRegistro extends javax.swing.JFrame {
         getContentPane().add(fieldEdad);
         fieldEdad.setBounds(140, 160, 180, 20);
 
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(410, 330));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
