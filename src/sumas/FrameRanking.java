@@ -63,6 +63,11 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         botonSalir.setBackground(java.awt.Color.gray);
@@ -136,9 +141,12 @@ public class FrameRanking extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_botonExportarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        this.sistema.deleteObserver(this);
         this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.sistema.deleteObserver(this);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

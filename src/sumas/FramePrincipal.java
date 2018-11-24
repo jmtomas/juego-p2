@@ -40,6 +40,11 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         TituloMenuPrincipal.setForeground(java.awt.Color.white);
@@ -145,14 +150,17 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonVerRankingActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             this.sistema.guardar();
         } catch (IOException ex) {
             Sonido.reproducir("Error");
             JOptionPane.showMessageDialog(this, "No se pudo guardar el sistema.");
         }
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }//GEN-LAST:event_botonSalirActionPerformed
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

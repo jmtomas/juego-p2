@@ -76,6 +76,11 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
         fieldAzul = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jLabel1.setForeground(java.awt.Color.white);
@@ -210,7 +215,6 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_botonJugarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        this.sistema.deleteObserver(this);
         this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 
@@ -228,6 +232,10 @@ public class FramePartida extends javax.swing.JFrame implements Observer {
         this.terminacion = 3;
         this.fieldTurnos.setEnabled(true);
     }//GEN-LAST:event_radioTurnosActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.sistema.deleteObserver(this);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

@@ -117,7 +117,6 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
             } else {
                 JOptionPane.showMessageDialog(this, "Hubo un empate.");
             }
-            partida.deleteObserver(this);
             this.dispose();
         }
     }
@@ -159,6 +158,11 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         panelBotones.setBackground(new java.awt.Color(34, 34, 34));
@@ -203,6 +207,10 @@ public class FrameTablero extends javax.swing.JFrame implements Observer {
         setSize(new java.awt.Dimension(723, 494));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        partida.deleteObserver(this);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
